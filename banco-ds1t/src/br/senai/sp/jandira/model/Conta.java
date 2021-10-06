@@ -1,0 +1,101 @@
+package br.senai.sp.jandira.model;
+
+import br.senai.sp.jandira.lista.TipoConta;
+
+public class Conta {
+	
+	private TipoConta tipo;
+	private String numero;
+	private Agencia agencia;
+	public Cliente titular;
+	private double saldo;
+	
+	// Método construtor
+	public Conta(String numeroConta) {
+		numero = numeroConta;
+	}
+	
+	public void setTipo(TipoConta tipo){
+		
+		this.tipo = tipo;
+		
+	}
+	
+	public TipoConta getTipo() {
+		return tipo;
+	}
+	
+	public void setTitular (Cliente titular) {
+		
+		this.titular = titular;
+		
+	}
+	
+	public Cliente getTitular () {
+		
+		return titular;
+		
+	}
+	
+	public void setAgencia(Agencia agencia) {
+		this.agencia = agencia;
+	}
+	
+	public Agencia getAgencia() {
+		return agencia;
+	}
+	
+	public void depositar(double valorDeposito) {
+		
+		if (valorDeposito <= 0) {
+			System.out.println("Valor incorreto, não foi possível efetuar o depósito!");
+		} else {
+			saldo += valorDeposito;
+		}
+		
+	}
+	
+	public boolean sacar(double valorSaque) {
+		
+		if (valorSaque <= 0) {
+			System.out.println("Valor incorreto, não foi possível efetuar o saque!");
+			return false;
+		} else if (valorSaque > saldo) {
+			System.out.println("Saldo insuficiente!!");
+			return false;
+		} else {
+			saldo -= valorSaque;
+			return true;
+		}
+		
+	}
+	
+	public void transferir(Conta contaDestino, double valorTransferencia) {
+		boolean resultado = sacar(valorTransferencia);
+		
+		if (resultado) {
+			contaDestino.depositar(valorTransferencia);
+		} else {
+			System.out.println("Não foi possível efetuar a transferência!");
+		}
+	
+	}
+	
+	    public void exibirDetalhes() {
+	    	
+		   System.out.println();
+		   System.out.println("---------------------");
+	       System.out.printf("Titular: %s\n", titular.getNome());
+		   System.out.printf("E-mail: %s\n", titular.getEmail());
+		   System.out.printf("Número: %s\n", numero);
+		   System.out.printf("Agência: %s\n", agencia.getNumero());
+		   System.out.printf("Agência: %s\n", agencia.getGerente());
+		   System.out.printf("Tipo: %s\n", tipo);
+		   System.out.printf("Saldo: %s\n", saldo);
+	}
+
+	
+		
+	}
+	
+
